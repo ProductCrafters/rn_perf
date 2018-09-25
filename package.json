@@ -5,15 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "dev": "react-native run-ios --simulator='iPhone 8'",
+    "clean": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/metro* && rm -rf $TMPDIR/haste-*",
     "test": "jest"
   },
   "dependencies": {
     "prettier": "1.14.3",
-    "prop-types": "false15.6.2",
+    "prop-types": "15.6.2",
     "react": "16.5.0",
     "react-native": "0.57.1",
-    "react-native-check-box": "false2.1.3",
-    "react-navigation": "false2.16.0",
+    "react-native-check-box": "2.1.3",
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-actions": "2.6.1",

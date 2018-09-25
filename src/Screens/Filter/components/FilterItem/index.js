@@ -6,6 +6,7 @@ import styleSheet from './stylesheet'
 
 const FilterItem = ({ category, onClick }) => (
   <View style={{ flex: 1 }}>
+    {console.log(1)}
     <CheckBox
       onClick={() => onClick(category)}
       isChecked={category.isShown}

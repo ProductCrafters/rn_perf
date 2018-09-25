@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, FlatList } from 'react-native'
 import FilterItem from './components/FilterItem'
 import { toggleSelectedCategory } from '../../redux/actions'
-import Header from '../../components/Header'
 
-const Filter = ({ categories, selectedCategories, toggleCategory, navigation }) => {
+const Filter = ({ categories, selectedCategories, toggleCategory }) => {
   const extendedCategories = categories.map(c => ({
     ...c,
     isShown: selectedCategories.find(sc => sc.id === c.id),
   }))
   return (
     <View style={{ flex: 1 }}>
-      <TouchableOpacity onPress={() => navigation.navigate('FilterResults')}>
-        <Text>Show Results</Text>
-      </TouchableOpacity>
-      <ScrollView>
-        {extendedCategories.map(c => (
-          <FilterItem category={c} key={c.id} onClick={toggleCategory} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={extendedCategories}
+        keyExtractor={i => i.id}
+        renderItem={({ item }) => (
+          <FilterItem category={item} key={item.id} onClick={toggleCategory} />
+        )}
+      />
     </View>
   )
 }
@@ -29,9 +27,6 @@ Filter.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-Filter.navigationOptions = () => ({
-  header: () => <Header text="Filter" />,
-})
 
 const connectedFilter = connect(
   state => ({

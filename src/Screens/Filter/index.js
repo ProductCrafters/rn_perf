@@ -6,17 +6,19 @@ import FilterItem from './components/FilterItem'
 import { toggleSelectedCategory } from '../../redux/actions'
 
 const Filter = ({ categories, selectedCategories, toggleCategory }) => {
-  const extendedCategories = categories.map(c => ({
-    ...c,
-    isShown: selectedCategories.find(sc => sc.id === c.id),
-  }))
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={extendedCategories}
+        data={categories}
+        extraData={selectedCategories}
         keyExtractor={i => i.id}
         renderItem={({ item }) => (
-          <FilterItem category={item} key={item.id} onClick={toggleCategory} />
+          <FilterItem
+            category={item}
+            isShown={!!selectedCategories.find(sc => sc.id === item.id)}
+            key={item.id}
+            onClick={toggleCategory}
+          />
         )}
       />
     </View>
@@ -26,7 +28,6 @@ const Filter = ({ categories, selectedCategories, toggleCategory }) => {
 Filter.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
-
 
 const connectedFilter = connect(
   state => ({
